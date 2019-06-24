@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间特殊作用： 如果使用mapper动态代理方法，这里就需要配置mapper接口地址 -->
+
+<mapper namespace="com.sise.ycj.model.JobPublishImage">
+
+	<insert id="addJobPublishImage" parameterType="JobPublishImage">
+		insert into jobPublishImage(pId,
+		pImage) values(#{pId},
+		#{pImage})
+	</insert>
+
+	<update id="updateJobPublishImageByPId" parameterType="JobPublishImage">
+		UPDATE jobPublishImage SET
+		pId=#{pId},
+		pImage=#{pImage} WHERE pId=#{pId}
+	</update>
+
+	<select id="getJobPublishImageByPId" resultType="JobPublishImage">
+		SELECT *
+		FROM jobPublishImage WHERE pId=#{pId}
+	</select>
+
+	<select id="getJobPublishImage" resultType="JobPublishImage">
+		SELECT *
+		FROM jobPublishImage
+	</select>
+
+	<delete id="deletePId" parameterType="string">
+		delete from users where
+		pId=#{pId}
+	</delete>
+
+</mapper>

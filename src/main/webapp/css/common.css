@@ -1,0 +1,144 @@
+@CHARSET "UTF-8";
+/* Resets */
+* {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+*::after,*::before {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+html,body,div,form,p,ul,li,span,label,img,input {
+    margin: 0;
+    padding: 0;
+    outline: none;
+}
+
+/* 适配不同分辨率设备 开始 */
+html {
+    font-size: 62.5%; /* rem换算px，1rem = 10px */
+}
+@media only screen and (min-width: 481px) {
+    html {
+        font-size: 94%!important;
+    }
+}
+@media only screen and (min-width: 561px) {
+    html {
+        font-size: 109%!important;
+    }
+}
+@media only screen and (min-width: 641px) {
+    html {
+        font-size: 125%!important;
+    }
+}
+/* 适配不同分辨率设备 结束 */
+
+
+body {
+    position: relative;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased; /* 解决字体在移动端比例缩小后出现锯齿的问题 */
+    -webkit-text-size-adjust: none; /* 阻止旋转屏幕时自动调整字体大小 */
+    -webkit-user-select: none; /* 禁止用户选中文字 */
+    -webkit-touch-callout: none; /* 禁止ios长按时触发系统的菜单，禁止ios&android长按时下载图片 */
+    overflow: hidden;
+    word-break: break-all;
+    overflow: auto;
+}
+
+input [type=button]{
+    -webkit-appearance:none; /* 去除按钮默认样式 */
+}
+
+input::-webkit-input-speech-button { /* android上隐藏语音输入按钮 */
+    display:none;
+}
+
+input::-webkit-input-placeholder{ /* 修改输入框placeholder的样式 */
+    color:#AAAAAA;
+}
+
+input:focus::-webkit-input-placeholder{ /* 修改输入框获取焦点时placeholder的样式 */
+    color:#EEEEEE;
+}
+
+a,button,input{
+    -webkit-tap-highlight-color: rgba(255,0,0,0); /* 去除android a/button/input标签被点击时产生的边框 & 去除ios a标签被点击时产生的半透明灰色背景 */
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* 自定义滚动条样式 开始 */
+::-webkit-scrollbar { /* 滚动条整体部分 */ }
+::-webkit-scrollbar:vertical { /* 竖向滚动条部分 */ }
+::-webkit-scrollbar:horizontal { /* 横向滚动条部分 */ }
+::-webkit-scrollbar-track { /* 滚动条的轨道(里面装有Thumb) */ }
+::-webkit-scrollbar-thumb { /* 滚动条里面的小方块，能向上向下移动(或往左往右移动，取决于是垂直滚动条还是水平滚动条) */ }
+::-webkit-scrollbar-button { /* 滚动条的轨道的两端按钮，允许通过点击微调小方块的位置 */ }
+::-webkit-scrollbar-track-piece { /* 内层轨道，滚动条中间部分(除去) */ }
+::-webkit-scrollbar-corner { /* 边角，即两个滚动条的交汇处 */ }
+::-webkit-resizer { /* 两个滚动条的交汇处上用于通过拖动调整元素大小的小控件 */ }
+/* 自定义滚动条样式 结束 */
+
+.hardware-acceleration{
+    -webkit-transform:translate3d(0, 0, 0); /* 在ios下可以让动画更加流畅（这个属性会调用硬件加速模式），但是在android下不可乱用，会产生很多见所未见的bug */
+}
+
+/* 允许独立的滚动区域和触摸回弹 */
+.touch-scrolling {
+    overflow:auto; /* winphone8和android4+ */
+    -webkit-overflow-scrolling: touch; /* ios5+ */
+}
+
+/* 0.5px横线 */
+.horizontal-line {
+    position: relative;
+}
+.horizontal-line:before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    -webkit-transform: scale(.5);
+    -webkit-transform-origin: 0 0;
+    -webkit-box-sizing: border-box;
+    z-index :0;
+}
+
+/* 0.5px竖线 */
+.vertical-line {
+    position: relative;
+}
+.vertical-line:before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-right: 1px solid rgba(255,255,255,0.3);
+    -webkit-transform: scale(.5);
+    -webkit-transform-origin: 0 0;
+    -webkit-box-sizing: border-box;
+    z-index :0;
+}
+
+/* 0.5px边框线 */
+.border-line {
+    position: relative;
+}
+.border-line:before {
+    content: "";
+    position: absolute;
+    top:0; left: 0;
+    width: 200%;
+    height: 200%;
+    border:1px solid #aaa;
+    transform-origin: 0 0;
+    transform: scale(0.5, 0.5);
+    pointer-events: none;
+}

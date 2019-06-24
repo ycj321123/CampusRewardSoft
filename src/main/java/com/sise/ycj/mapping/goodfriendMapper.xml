@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间特殊作用： 如果使用mapper动态代理方法，这里就需要配置mapper接口地址 -->
+
+<mapper namespace="com.sise.ycj.model.Goodfriend">
+
+	<insert id="addGoodfriend" parameterType="Goodfriend">
+		insert into goodfriend(myAccount,
+		yourAccount,isdelete,addHMD,isAgree) values(#{myAccount},
+		#{yourAccount},#{isdelete},#{addHMD},#{isAgree})
+	</insert>
+
+	<update id="updateGoodfriendByMyaccount" parameterType="Goodfriend">
+		UPDATE goodfriend SET
+		myAccount=#{myAccount},
+		yourAccount=#{yourAccount},isdelete=#{isdelete},addHMD=#{addHMD},isAgree=#{isAgree} WHERE fid=#{fid}
+	</update>
+
+	<select id="getGoodfriendByMyAccount" resultType="Goodfriend">
+		SELECT *
+		FROM goodfriend WHERE myAccount=#{myAccount} and isdelete=0 and isAgree=1
+	</select>
+	
+	<select id="getGoodfriendByYourAccount" resultType="Goodfriend">
+		SELECT *
+		FROM goodfriend WHERE yourAccount=#{yourAccount} and myAccount=#{myAccount} and isdelete=0
+	</select>
+
+	<select id="getGoodfriend" resultType="Goodfriend">
+		SELECT *
+		FROM goodfriend and isdelete=0
+	</select>
+
+	<delete id="deleteGoodfriend" parameterType="string">
+		delete from goodfriend where
+		yourAccount=#{yourAccount} and isdelete=0
+	</delete>
+
+</mapper>

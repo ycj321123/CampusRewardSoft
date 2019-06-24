@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间特殊作用： 如果使用mapper动态代理方法，这里就需要配置mapper接口地址 -->
+
+<mapper namespace="com.sise.ycj.model.Receive_msg">
+
+	<insert id="addReceive_msg" parameterType="Receive_msg">
+		insert into receive_msg(rAccount,
+		rContent,rTime,isDelete,rFile) values(#{rAccount},
+		#{rContent},#{rTime},#{isDelete},#{rFile})
+	</insert>
+
+	<update id="updateReceive_msgByPaccount" parameterType="Receive_msg">
+		UPDATE receive_msg SET
+		rAccount=#{rAccount},
+		rContent=#{rContent},rTime=#{rTime},isDelete=#{isDelete},rFile=#{rFile} WHERE rMsgid=#{rMsgid}
+	</update>
+
+	<select id="getReceive_msg" resultType="Receive_msg">
+		SELECT *
+		FROM receive_msg where isDelete=0
+	</select>
+
+	<select id="getReceive_msgByRaccount" resultType="Receive_msg">
+		SELECT *
+		FROM receive_msg WHERE rAccount=#{rAccount} and isDelete=0
+	</select>
+	
+	<delete id="deleteReceive_msg" parameterType="string">
+		delete from receive_msg where
+		rAccount=#{rAccount}
+	</delete>
+
+</mapper>

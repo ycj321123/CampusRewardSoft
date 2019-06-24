@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+        http://www.springframework.org/schema/beans/spring-beans.xsd    
+        http://www.springframework.org/schema/mvc   
+        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd    
+        http://www.springframework.org/schema/context   
+        http://www.springframework.org/schema/context/spring-context.xsd  
+        http://www.springframework.org/schema/tx    
+        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd"
+	default-autowire="byName" default-lazy-init="false">
+
+	<!-- 开启注解 <mvc:annotation-driven ignoreDefaultModelOnRedirect="true"/> -->
+	<mvc:annotation-driven
+		ignore-default-model-on-redirect="true">
+		<mvc:message-converters>
+        <bean class="org.springframework.http.converter.ResourceHttpMessageConverter" >
+        </bean>
+        <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" >
+         <property name="supportedMediaTypes">
+            <list>
+              <value>text/html;charset=UTF-8</value>
+              <value>application/json;charset=UTF-8</value>
+            </list> 
+         </property>
+        </bean>
+    </mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<context:component-scan base-package="com.sise.ycj" />
+
+	<!-- 静态资源处理 css js imgs -->
+	<mvc:resources location="/resources/**" mapping="/resources" />
+
+	<!-- 配置视图解析器: 如何把 handler 方法返回值解析为实际的物理视图 -->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+
+	<!-- 定义文件上传解析器 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 设定默认编码 -->
+		<property name="defaultEncoding" value="UTF-8" />
+		<!-- 设定文件上传的最大值5MB，5*1024*1024 -->
+		<property name="maxUploadSize" value="5242880" />
+		<property name="maxInMemorySize" value="4096" />
+	</bean>
+
+	<!-- 配置拦截器 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<!-- 拦截所有mvc控制器 -->
+			<mvc:mapping path="/**"/>
+			<mvc:exclude-mapping path="/admin/*"/>
+			<!-- mvc:exclude-mapping是另外一种拦截，它可以在你后来的测试中对某个页面进行不拦截，这样就不用在
+				LoginInterceptor的preHandler方法里面获取不拦截的请求uri地址了(优选) -->
+			<mvc:exclude-mapping path="/user/login.do"/>
+			<mvc:exclude-mapping path="/user/register.do"/>
+			<mvc:exclude-mapping path="/user/agreement.do"/>
+			<mvc:exclude-mapping path="/user/forget_pass.do"/>
+			<mvc:exclude-mapping path="/user/registerTwo.do"/>
+			<mvc:exclude-mapping path="/user/registerThree.do"/>
+			<mvc:exclude-mapping path="/user/change_pass.do"/>
+			<bean class="com.sise.ycj.util.LoginInterceptor"></bean>			
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>
+</beans>

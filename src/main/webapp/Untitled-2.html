@@ -1,0 +1,655 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="./css/font-awesome.css">
+	<title>Document</title>
+	<style type="text/css">
+	   html{
+		 font-size: 100px;	
+		}
+		div{
+			box-sizing: border-box;
+		}
+		body,input,i,a{
+			padding:0;
+			margin:0;
+			text-decoration: none;
+			outline: none;
+			font-size: 0.12rem;
+		}
+		body{
+			background: rgb(240,240,240);
+		}
+		.header>.top{
+			position: fixed;
+			left:0;
+			top:0;
+			z-index: 10;
+			height: 0.44rem;
+			background:#379AFF;
+			font-size: 0.14rem;
+			color:white;
+			width: 100%;
+			text-align: center;
+			padding-left: 0.17rem;
+			padding-right: 0.17rem;
+			line-height: 0.44rem;
+		}
+		.header:after{
+			content: "";
+			display: block;
+			clear: both;
+		}
+		.top>.address{
+			float: left;
+		}
+		.top input{
+			width: 2.54rem;
+			height: 0.28rem;
+		}
+		.search>i{
+			position: absolute;
+			left:0.83rem;
+
+			z-index: 10;
+			color: gray;
+ 
+ 
+		}
+		.top>.xx{
+			position: absolute;
+			left:3.1rem;
+			top:0.08rem;
+			z-index: 5;
+			color: gray;
+			font-size: 0.14rem;
+		}
+		.top>.sm{
+			position: absolute;
+			left:3.35rem;
+			top:0rem;
+			z-index:5;
+			color: white;
+			font-size: 0.28rem;	
+			margin-left: 0.1rem;
+ 
+ 
+		}
+		.header>.banner{
+			margin-top:0.44rem;
+		}
+		.banner>.img{
+			position: relative;
+			width: 100%;
+			height: 1.64rem;
+		}
+		.banner>.img>img{
+			width: 100%;
+			height:1.64rem;
+			object-fit: cover;
+		}
+		.banner .cut1,.banner .cut2{
+			font-size: 0.4rem;
+			color:white;
+			font-weight: lighter;
+		}
+		.banner .cut1{
+			position:absolute;
+			left:0.1rem;
+			top:0.55rem;
+			z-index: 5; 
+		}
+		.banner .cut2{
+			position: absolute;
+			right: 0.1rem;
+			top:0.55rem;
+			z-index: 5;
+		}
+		.nav{
+			height: 1.08rem;
+			width: 100%;
+			background: white;
+			display: flex;
+			flex-flow: row ;
+			justify-content: space-around;
+			padding-top: 0.16rem;
+			text-align: center;
+			color: #666666;
+ 
+ 
+		}
+		.nav>.first>.top,.nav>.sec>.top,.nav>.third>.top,.nav>.four>.top{
+			width: 0.6rem;
+			height: 0.6rem;	
+			margin-bottom: 0.08rem;
+		}
+		.nav>.first>.top{
+			background: #48BDB2;
+		}
+		.nav>.sec>.top{
+ 
+ 
+			background: #FF5353 ;
+ 
+ 
+		}
+		.nav>.third>.top{
+			background: #5B96F7  ;
+ 
+ 
+		}
+		.nav>.four>.top{
+			background: #F38A42 ;
+ 
+ 
+		}
+		.top>i{
+			font-size: 0.35rem;
+			color: white;
+			margin-top:0.1rem;
+		}
+		.intro{
+			width: 100%;
+			height: 0.36rem;
+			background: rgb(234,246,245);
+ 
+ 
+			display: flex;
+			flex-flow: row;
+			justify-content: flex-start;
+			font-size: 0.09rem;
+		    color: #333333;
+		    border: 1px solid #26A69A;
+ 
+ 
+		}
+		.intro>img{
+			width: 0.43rem;
+			height: 0.342rem;
+			margin-right: 0.09rem;
+		}
+		.intro span{
+			color: red;
+		}
+		.show{
+			height: 1rem;
+		}
+		.content>.first{
+			height: 1.85rem;
+			background: white;
+			padding-left: 0.12rem;
+			padding-top: 0.13rem;
+			padding-right: 0.17rem;
+		}
+		.content{
+			overflow: scroll;
+		}
+	    .content>.first>.title{
+	    	color: #666666;
+ 
+ 
+	    }
+		.first>.title>span{
+			color: green;
+			font-weight: bold;
+			font-size: 0.12rem;
+			margin-left: 0.08rem;
+		}
+ 
+ 
+		.first>.title>a{
+			float: right;
+			color: #666666;
+		}
+		.first>.left{
+			width: 2.16rem;
+			height: 1.36rem;
+			background: red;
+		}
+		.first>.left>img{
+			width: 2.16rem;
+			object-fit: cover;
+		}
+       .content>.first>.firstImg{
+       	display: flex;
+       	flex-flow: row wrap;
+       	justify-content: space-between;
+       }
+       .first .right>.top{
+       	margin-top: 0.12rem;
+       	margin-bottom: 0.1rem;
+       }
+       .first .left{
+       	margin-top: 0.12rem;
+ 
+ 
+       }
+       .cell{
+       	padding-left: 0.12rem;
+       	padding-right: 0.17rem;
+       	margin-top:0.13rem;
+       	background: white;
+       	padding-top: 0.17rem;
+    
+ 
+ 
+ 
+ 
+       }
+ 
+ 
+       .cell>.title{
+       	height: 0.2rem;
+       }
+		.cell>.title>span{
+			color: green;
+			font-weight: bold;
+			font-size: 0.12rem;
+			margin-left: 0.08rem;
+			margin-top: 0.12rem;
+		}
+		 .content>.cell>.title{
+	    	color: #666666;
+ 
+ 
+	    }
+	    .cell>.title>a{
+			float: right;
+			color: #666666;
+		}
+        .cell .cell1{
+        	width: 47%;
+        	height: 1.85rem;
+        }
+ 
+ 
+	    .cell1>.left{
+	    	width: 100%;
+	    	height: 1.85rem;
+	    }
+	    .cell1 img{
+	    	width: 100%;
+	    	object-fit: cover;
+	    	display: block;
+	    }
+	    .cell1 .name{
+	    	color: green;
+	    }
+	    .cell1>.left>.view{
+	    	font-size: 0.09rem;
+	    	color: gray;
+	    	border-bottom:1px dashed gray;
+	    	margin-bottom: 0.08rem;
+	    	padding-bottom: 0.03rem;
+	    }
+        .cell1>.left>.shop{
+        	float: right;
+        	background: #26A69A;
+			border-radius: 4px;
+			padding: 0.03rem 0.05rem;
+			font-size: 0.12rem;
+			color: white;
+			margin-right: 0.03rem;
+        }
+        .cell1>.left>span{
+        	color: green;
+        	font-size: 0.13rem;
+ 
+ 
+        }
+        .cell>.bottom{
+        	   	display: flex;
+       	flex-flow: row wrap;
+       	justify-content: space-between;
+ 
+ 
+        }
+        .cell .cell1{
+        	margin-bottom: 0.15rem;
+        }
+ 
+ 
+       .footer{
+       	position: fixed;
+       	width: 100%;
+       	left:0;
+       	bottom: 0;
+       	z-index: 5;
+       	height: 0.48rem;
+        background: #379AFF ;
+        display: flex;
+        flex-flow: row;
+        justify-content: space-around;
+        line-height: 0.24rem;
+       }
+       .footer>.option{
+       	width: 25%;
+       	text-align: center;
+       }
+      .content{
+      	margin-bottom: 0.5rem;
+      }
+      .footer{
+      	color: white;
+      }
+      .footer i{
+      	font-size: 0.15rem;
+      }
+      .footer .list{
+      	font-size: 0.1rem;
+      }
+      .footer>.option:hover{
+      	background: white;
+      	color:  #26A69A;
+      }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+	</style>
+</head>
+<body>
+	<div class="header">
+		<div class="top">
+			<div class="address">北京</div>
+			<div class="search">
+				 <i class="fa fa-search"> Sketch</i>
+ 
+ 
+				 <input type="text" >
+			</div>
+			<i class="fa fa-times-circle-o xx"></i>
+			<i class="fa fa-minus-square-o sm"></i>
+   	         
+		</div>
+		<div class="banner">
+			<div class="img">
+				<img src="./content4.png" alt="">
+				<div class="cut1"> < </div>
+				<div class="cut2"> > </div>
+			</div>
+		</div>
+		<div class="nav">
+			<div class="first">
+				<div class="top"><i class="fa fa-gift"></i></div>
+				<div class="bottom">优惠活动</div>
+			</div>
+			<div class="sec">
+				<div class="top"><i class="fa fa-handshake-o"></i></div>
+				<div class="bottom">商家联盟</div>
+			</div>
+			<div class="third">
+				<div class="top"><i class="fa fa-th-large"></i></div>
+				<div class="bottom">汽车资讯</div>
+			</div>
+			<div class="four">
+				<div class="top"><i class="fa fa-headphones"></i></div>
+				<div class="bottom">售后服务</div>
+			</div>
+					
+		</div>
+ 
+ 
+		<div class="intro">
+			<img src="./lv.jpg" alt="">
+			<div class="right">
+				<div class="top">
+					目前<span>10000人</span>为绿化做出贡献
+				</div>
+				<div class="bottom">
+					您可以成为<span>第100002名</span>为绿化做贡献者
+				</div>
+			</div>
+			
+			
+		</div>
+		<div class="show">
+			<img src="./content1.png" alt="">
+		</div>
+	</div>
+	<div class="content">
+		<div class="first">
+			<div class="title">
+				<span>|</span> TOP排行
+				<a href="">更多 > </a>
+			</div>
+			<div class="firstImg">	
+              <div class="left">
+              	<img src="./content2.png" alt="">
+              </div>
+              <div class="right">
+              	<div class="top">
+              		<img src="./content3.png" alt="">
+              	</div>
+              	<div class="bottom">
+              		<img src="./content3.png" alt="">
+              	</div>
+              </div>
+			</div>
+		</div>
+		<div class="cell">
+			<div class="title">
+				<span>|</span> 新能源品牌热卖
+				<a href="">更多 ></a>
+			</div>
+			<div class="bottom">
+					<div class="cell1">
+				<div class="left">
+					<div class="img">
+						<img src="./title.jpg" alt="">
+					</div>
+					<div class="name">
+						特斯拉
+					</div>
+					<div class="view">
+						特斯拉特斯拉特斯拉特斯拉
+					</div>	
+					<span>￥34.223.00</span>
+					<span class="shop">加入购物车</span>
+				
+				</div>	
+			</div>
+			<div class="cell1">
+				 <div class="left">
+					<div class="img">
+						<img src="./title.jpg" alt="">
+					</div>
+					<div class="name">
+						特斯拉
+					</div>
+					<div class="view">
+						特斯拉特斯拉特斯拉特斯拉
+					</div>	
+					<span>￥34.223.00</span>
+					<span class="shop">加入购物车</span>
+				
+			</div>	
+			</div>
+			<div class="cell1">
+				<div class="left">
+					<div class="img">
+						<img src="./title.jpg" alt="">
+					</div>
+					<div class="name">
+						特斯拉
+					</div>
+					<div class="view">
+						特斯拉特斯拉特斯拉特斯拉
+					</div>	
+					<span>￥34.223.00</span>
+					<span class="shop">加入购物车</span>
+				
+				</div>	
+			</div>
+			<div class="cell1">
+				<div class="left">
+					<div class="img">
+						<img src="./title.jpg" alt="">
+					</div>
+					<div class="name">
+						特斯拉
+					</div>
+					<div class="view">
+						特斯拉特斯拉特斯拉特斯拉
+					</div>	
+					<span>￥34.223.00</span>
+					<span class="shop">加入购物车</span>
+				
+				</div>	
+			</div>
+			</div>
+		</div>
+		<div class="cell">
+			<div class="title">
+				<span>|</span> 新能源品牌热卖
+				<a href="">更多 ></a>
+			</div>
+			<div class="bottom">
+					<div class="cell1">
+				<div class="left">
+					<div class="img">
+						<img src="./title.jpg" alt="">
+					</div>
+					<div class="name">
+						特斯拉
+					</div>
+					<div class="view">
+						特斯拉特斯拉特斯拉特斯拉
+					</div>	
+					<span>￥34.223.00</span>
+					<span class="shop">加入购物车</span>
+				
+				</div>	
+			</div>
+			<div class="cell1">
+				 <div class="left">
+					<div class="img">
+						<img src="./title.jpg" alt="">
+					</div>
+					<div class="name">
+						特斯拉
+					</div>
+					<div class="view">
+						特斯拉特斯拉特斯拉特斯拉
+					</div>	
+					<span>￥34.223.00</span>
+					<span class="shop">加入购物车</span>
+				
+			</div>	
+			</div>
+			<div class="cell1">
+				<div class="left">
+					<div class="img">
+						<img src="./title.jpg" alt="">
+					</div>
+					<div class="name">
+						特斯拉
+					</div>
+					<div class="view">
+						特斯拉特斯拉特斯拉特斯拉
+					</div>	
+					<span>￥34.223.00</span>
+					<span class="shop">加入购物车</span>
+				
+				</div>	
+			</div>
+			<div class="cell1">
+				<div class="left">
+					<div class="img">
+						<img src="./title.jpg" alt="">
+					</div>
+					<div class="name">
+						特斯拉
+					</div>
+					<div class="view">
+						特斯拉特斯拉特斯拉特斯拉
+					</div>	
+					<span>￥34.223.00</span>
+					<span class="shop">加入购物车</span>
+				
+				</div>	
+			</div>
+			
+			<a href="tel:13535572171">移动WEB页面JS一键拨打号码咨询功能</a>
+			</div>
+		</div>
+		
+	</div>
+	
+	
+	<div class="footer">
+      <div class="option  shouye">
+      
+      	<i class="fa fa-home"></i>
+      	<div class="list">任务大厅</div>
+   
+      	
+      </div>
+       <div class="option">
+          <i class="fa fa-th-large"></i>
+      	  <div class="list"></div>
+      </div>
+       <div class="option">
+	<i class="fa fa-list-ul"></i>
+      	<div class="list">消息</div>
+      </div>
+       <div class="option">
+      	<i class="fa fa-user-o"></i>
+      	<div class="list">我</div>
+      </div>
+		
+ 
+	</div>
+ 
+<script>
+ 
+ 
+ 
+ 
+autoSize();
+ 
+ 
+ 
+window.onresize = function(){
+ 
+autoSize();
+ 
+   
+ 
+}
+ 
+ 
+ 
+function autoSize(){
+ 
+// 获取当前浏览器的视窗宽度，放在w中
+ 
+var w = document.documentElement.clientWidth;
+ 
+// 计算实际html font-size大小
+ 
+var size = w * 100 / 375 ;
+ 
+// 获取当前页面中的html标签
+ 
+var html = document.querySelector('html');
+ 
+// 设置字体大小样式
+ 
+html.style.fontSize = size + 'px';
+ 
+}
+ 
+</script>
+ 
+ 
+ 
+</body>
+</html>

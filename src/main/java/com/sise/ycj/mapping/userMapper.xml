@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间特殊作用： 如果使用mapper动态代理方法，这里就需要配置mapper接口地址 -->
+
+<mapper namespace="com.sise.ycj.model.User">
+
+	<insert id="addUser" parameterType="User">
+		insert into users(account,
+		username,email,password) values(#{account},
+		#{username},#{email},#{password})
+	</insert>
+
+	<update id="updateUserByAccount" parameterType="User">
+		UPDATE users SET
+		account=#{account},
+		username=#{username},email=#{email},password=#{password},role=#{role},creditIntegral=#{creditIntegral},loginLimit=#{loginLimit},money=#{money} WHERE user_id=#{userid}
+	</update>
+
+	<select id="getUserById" parameterType="int" resultType="User">
+		SELECT *
+		FROM users WHERE user_id=#{userid}
+	</select>
+	
+	<select id="getUser" parameterType="map" resultType="User">
+		SELECT *
+		FROM users WHERE (account like #{name} OR email like #{name} or username like #{name}) limit #{offSet},#{pageSize} 
+	</select>
+	<select id="getCount" parameterType="map" resultType="int">
+		SELECT count(*)
+		FROM users WHERE (account like #{name} OR email like #{name} or username like #{name})
+	</select>
+
+	<select id="getUserByAccount" resultType="User">
+		SELECT *
+		FROM users
+		WHERE account=#{account} OR email = #{account}
+	</select>
+	
+	<select id="loadCreditIntegral" parameterType="map" resultType="User">
+		SELECT *
+		FROM users WHERE role !=1 order by creditIntegral limit #{offSet},#{pageSize} 
+	</select>
+	<select id="getCount2" parameterType="map" resultType="int">
+		SELECT count(*)
+		FROM users WHERE role !=1
+	</select>
+	
+	<select id="getUserByCreditIntegral" resultType="User">
+		SELECT *
+		FROM users order by creditIntegral desc
+	</select>
+
+	<delete id="deleteUser" parameterType="string">
+		delete from users where
+		account=#{account}
+	</delete>
+
+</mapper>

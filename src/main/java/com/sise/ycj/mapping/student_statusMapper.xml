@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间特殊作用： 如果使用mapper动态代理方法，这里就需要配置mapper接口地址 -->
+
+<mapper namespace="com.sise.ycj.model.Student_status">
+
+	<insert id="addStudent_status" parameterType="Student_status">
+		insert into student_status(u_account,
+		school_name,yuan_xi,zhuan_ye,xue_li,ruxue_year) values(#{uaccount},
+		#{schoolName},#{yuanXi},#{zhuanYe},#{xueLi},#{ruxueYear})
+	</insert>
+
+	<update id="updateStudent_status" parameterType="Student_status">
+		UPDATE student_status SET
+		u_account=#{uaccount},
+		school_name=#{schoolName},yuan_xi=#{yuanXi},
+		zhuan_ye=#{zhuanYe},xue_li=#{xueLi},ruxue_year=#{ruxueYear}
+		 WHERE u_account=#{uaccount}
+	</update>
+
+	<select id="getStudent_statusByU_account" resultType="Student_status">
+		SELECT 
+		u_account as uaccount,
+		school_name as schoolName,
+		yuan_xi as yuanXi,
+		zhuan_ye as zhuanYe,
+		xue_li as xueLi,
+		ruxue_year as ruxueYear
+		FROM student_status WHERE u_account=#{uaccount}
+	</select>
+
+	<select id="getStudent_statusBySchool_name" resultType="Student_status">
+		SELECT 
+		u_account as uaccount,
+		school_name as schoolName,
+		yuan_xi as yuanXi,
+		zhuan_ye as zhuanYe,
+		xue_li as xueLi,
+		ruxue_year as ruxueYear
+		FROM student_status WHERE school_name=#{schoolName}
+	</select>
+	
+	<select id="getStudent_statusList" resultType="Student_status">
+		SELECT 
+		u_account as uaccount,
+		school_name as schoolName,
+		yuan_xi as yuanXi,
+		zhuan_ye as zhuanYe,
+		xue_li as xueLi,
+		ruxue_year as ruxueYear FROM student_status		
+	</select>
+	<select id="getStudent_statusByName" parameterType="map" resultType="Student_status">
+		SELECT 
+		u_account as uaccount,
+		school_name as schoolName,
+		yuan_xi as yuanXi,
+		zhuan_ye as zhuanYe,
+		xue_li as xueLi,
+		ruxue_year as ruxueYear FROM student_status	WHERE (u_account like #{name} OR school_name like #{name} or xue_li like #{name} or ruxue_year like #{name})limit #{offSet},#{pageSize} 
+	</select>
+	<select id="getStudent_statusCount" parameterType="map" resultType="int">
+		SELECT 
+		count(*) FROM student_status WHERE (u_account like #{name} OR school_name like #{name} or xue_li like #{name} or ruxue_year like #{name})
+	</select>
+
+	<delete id="deleteStudent_statusByU_account" parameterType="int">
+		delete from student_status where
+		u_account=#{uaccount}
+	</delete>
+
+</mapper>

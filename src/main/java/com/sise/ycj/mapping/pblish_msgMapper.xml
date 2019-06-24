@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间特殊作用： 如果使用mapper动态代理方法，这里就需要配置mapper接口地址 -->
+
+<mapper namespace="com.sise.ycj.model.Publish_msg">
+
+	<insert id="addPublish_msg" parameterType="Publish_msg">
+		insert into publish_msg(pAccount,
+		pContent,pTime,isDelete,pFile,SendToWho) values(#{pAccount},
+		#{pContent},#{pTime},#{isDelete},#{pFile},#{SendToWho})
+	</insert>
+
+	<update id="updatePublish_msgByPaccount" parameterType="Publish_msg">
+		UPDATE publish_msg SET
+		pAccount=#{pAccount},
+		pContent=#{pContent},pTime=#{pTime},isDelete=#{isDelete},pFile=#{pFile},SendToWho=#{SendToWho},isRead=#{isRead} WHERE pMsgid=#{pMsgid}
+	</update>
+
+	<select id="getPublish_msg" resultType="Publish_msg">
+		SELECT *
+		FROM publish_msg where isDelete=0 
+	</select>
+	
+	<select id="getPublish_msgById" resultType="Publish_msg">
+		SELECT *
+		FROM publish_msg where pMsgid=#{pMsgid} and isDelete=0 
+	</select>
+	
+	<select id="getPublish_msgBya1" resultType="Publish_msg">
+		SELECT *
+		FROM publish_msg where SendToWho=#{account} and isDelete=0 and isRead=0 and pAccount!=#{account}
+	</select>
+
+	<select id="getPublish_msgByPandP" resultType="Publish_msg">
+		SELECT DISTINCT pAccount ,SendToWho
+		FROM publish_msg WHERE (pAccount=#{pAccount} or SendToWho= #{pAccount})and isDelete=0;
+	
+	</select>
+	
+	<select id="getPublish_msgByMeR" resultType="Publish_msg">
+		SELECT *
+		FROM publish_msg WHERE (pAccount=#{pAccount} and SendToWho=#{SendToWho} ) and isDelete=0 and isRead=0
+	</select>
+	
+	<select id="getPublish_msgByPandW" resultType="Publish_msg">
+		SELECT *
+		FROM publish_msg WHERE ((pAccount=#{pAccount} and SendToWho=#{SendToWho}) or (pAccount=#{SendToWho} and SendToWho=#{pAccount})) and isDelete=0 order by pTime desc limit 1
+	
+	</select>
+	
+	<select id="getPublish_msgByPaccountAndWho" parameterType="hashmap" resultType="Publish_msg">
+		SELECT *
+		FROM publish_msg WHERE ((pAccount=#{pAccount} and SendToWho=#{SendToWho}) or (pAccount=#{SendToWho} and SendToWho=#{pAccount})) and isDelete=0 order by pTime asc
+	</select>
+	
+	<delete id="deletePublish_msg" parameterType="string">
+		delete from publish_msg where
+		pAccount=#{pAccount}
+	</delete>
+
+</mapper>

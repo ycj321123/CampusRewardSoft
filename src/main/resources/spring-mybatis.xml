@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"  
+    xmlns:context="http://www.springframework.org/schema/context"  
+    xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans   
+        http://www.springframework.org/schema/beans/spring-beans.xsd    
+        http://www.springframework.org/schema/mvc   
+        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd    
+        http://www.springframework.org/schema/context   
+        http://www.springframework.org/schema/context/spring-context.xsd  
+        http://www.springframework.org/schema/tx    
+        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">  
+        
+      
+  <!-- 加载配置文件 -->
+    <context:property-placeholder location="classpath:db.properties" /> 
+     <!-- Mybatis 和 Spring的整合 -->  
+    <!-- 1.数据源：DriverManagerDataSource --> 
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" 
+    init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driver}"></property>
+        <property name="url" value="${jdbc.url}"></property>
+        <property name="username" value="${jdbc.username}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+     <!--    初始化连接大小 -->
+        <property name="initialSize" value="0" />
+        <!-- 连接池最大使用连接数量 -->
+        <property name="maxActive" value="20" />
+    <!--    连接池最大空闲  -->
+        <property name="maxIdle" value="20" />
+
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle" value="5" />
+    <!--    获取连接最大等待时间 -->
+        <property name="maxWait" value="60000" />
+        <!-- 验证连接有效与否的SQL，不同的数据配置不同 --> 
+        <property name="validationQuery" value="${validationQuery.sql}" />
+        <property name="testOnBorrow" value="false" />
+        <property name="testOnReturn" value="false" />
+        <property name="testWhileIdle" value="true" />
+
+    <!--    配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="25200000" />
+
+        <!-- 打开removeAbandoned功能 -->
+        <property name="removeAbandoned" value="true" />
+    <!--    1800秒，也就是30分钟 -->
+        <property name="removeAbandonedTimeout" value="3600" />
+        <!-- 关闭abanded连接时输出错误日志 -->
+        <property name="logAbandoned" value="true" />
+
+        <!-- 开启Druid的监控统计功能 -->
+        <property name="filters" value="stat" />
+
+   </bean> 
+
+    <!-- 2.Mybatis 的 SqlSession的工厂：SqlSessionFactoryBean dataSource引用数据源 Mybatis   
+        定义数据源，同意加载配置 -->  
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">  
+        <property name="dataSource" ref="dataSource"></property>  
+        <!-- 加载mapper文件 -->
+         <property name="typeAliasesPackage" value="com.sise.ycj.model" />
+        <property name="mapperLocations" value="classpath:com/sise/ycj/mapping/*.xml" /> 
+         <property name="configLocation" value="classpath:mybatis-config.xml"/>   
+    </bean> 
+   
+
+    <!-- 4.事务管理：DataSourceTransactionManager dataSource 引用上面定义好的数据源 -->  
+    <bean id="txManager"  
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
+        <property name="dataSource" ref="dataSource"></property>  
+    </bean>  
+
+    <!-- 5.使用声明式事务： transaction-manager = "txManager" tx:advice 这种 是用 aop方式管理事物   
+        annotation-driven 这种是注解方式管理事物 第一种方式，需要在spring配置文件配置一些参数 第二种方式，需要在 类里 加一些注解进行事物管理   
+        用一种就行，没必须都用 -->  
+        <!-- 采用注解配置事务 -->
+    <tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>  
+
+</beans>

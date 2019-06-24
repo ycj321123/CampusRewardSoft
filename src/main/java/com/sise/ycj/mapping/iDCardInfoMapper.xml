@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间特殊作用： 如果使用mapper动态代理方法，这里就需要配置mapper接口地址 -->
+
+<mapper namespace="com.sise.ycj.model.IDCardInfo">
+
+	<insert id="addIDCardInfo" parameterType="IDCardInfo">
+		insert into IDCardInfo(uaccount,
+		realname,idcard,isreal,stuCardL,stuCardR,idCardL,idCardR) values(#{uaccount},
+		#{realname},#{idcard},#{isreal},#{stuCardL},#{stuCardR},#{idCardL},#{idCardR})
+	</insert>
+
+	<update id="updateIDCardInfoByUaccount" parameterType="IDCardInfo">
+		UPDATE IDCardInfo SET
+		uaccount=#{uaccount},
+		realname=#{realname},
+		idcard=#{idcard},
+		isreal=#{isreal},
+		stuCardL=#{stuCardL},
+		stuCardR=#{stuCardR},
+		idCardL=#{idCardL},
+		idCardR=#{idCardR}
+		WHERE uaccount=#{uaccount}
+	</update>
+
+	<select id="getIDCardInfoByUaccount" resultType="IDCardInfo">
+		SELECT *
+		FROM IDCardInfo WHERE uaccount=#{uaccount}
+	</select>
+	
+	<select id="getIDCardInfo" resultType="IDCardInfo">
+		SELECT *
+		FROM IDCardInfo where isreal=0
+	</select>
+
+	<delete id="deleteIDCardInfo" parameterType="string">
+		delete from IDCardInfo where
+		uaccount=#{uaccount}
+	</delete>
+
+</mapper>

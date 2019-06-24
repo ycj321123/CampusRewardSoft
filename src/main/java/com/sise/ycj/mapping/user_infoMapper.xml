@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间特殊作用： 如果使用mapper动态代理方法，这里就需要配置mapper接口地址 -->
+
+<mapper namespace="com.sise.ycj.model.User_info">
+
+	<insert id="addUser_info" parameterType="User_info">
+		insert into user_info(u_account,realname,nickname,sex,birthday,addr,headsrc) values(#{uaccount},#{realname},
+		#{nickname},#{sex},#{birthday},#{addr},#{headsrc})
+	</insert>
+
+	<update id="updateUser_infoByU_account" parameterType="User_info">
+		UPDATE user_info SET
+		u_account=#{uaccount},
+		realname=#{realname},
+		nickname=#{nickname},sex=#{sex},birthday=#{birthday},addr=#{addr},headsrc=#{headsrc},hasMsg=#{hasMsg}
+		WHERE u_account=#{uaccount}
+	</update>
+
+	<select id="getUser_infoByU_account" resultType="User_info">
+		SELECT u_id as uid,
+	u_account as uaccount,
+	realname,
+	nickname,
+	sex,
+	birthday,
+	addr,
+	headsrc
+		FROM user_info WHERE u_account=#{u_account}
+	</select>
+
+	<select id="getUser_infoByName" parameterType="map" resultType="User_info">
+		SELECT u_id as uid,
+	u_account as uaccount,
+	realname,
+	nickname,
+	sex,
+	birthday,
+	addr
+		FROM user_info WHERE (u_account like #{name} OR realname like #{name} or nickname like #{name} or addr like #{name}) limit #{offSet},#{pageSize} 
+	</select>
+	<select id="getCount" parameterType="map" resultType="int">
+		SELECT count(*)
+		FROM user_info WHERE (u_account like #{name} OR realname like #{name} or nickname like #{name} or addr like #{name})
+	</select>
+
+	<select id="getUser_info" resultType="User_info">
+		SELECT *
+		FROM user_info
+	</select>
+
+	<delete id="deleteUser_info" parameterType="int">
+		delete from user_info where
+		u_account=#{uaccount}
+	</delete>
+
+</mapper>

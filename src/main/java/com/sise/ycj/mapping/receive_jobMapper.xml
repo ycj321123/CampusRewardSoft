@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间特殊作用： 如果使用mapper动态代理方法，这里就需要配置mapper接口地址 -->
+
+<mapper namespace="com.sise.ycj.model.Receive_job">
+
+	<insert id="addReceive_job" parameterType="Receive_job">
+		insert into receive_job(pId,
+		rAccount,rTime,isDelete,okTime) values(#{pId},
+		#{rAccount},#{rTime},#{isDelete},#{okTime})
+	</insert>
+
+	<update id="updateReceive_jobByPid" parameterType="Receive_job">
+		UPDATE receive_job SET
+		pId=#{pId},
+		rAccount=#{rAccount},rTime=#{rTime},isDelete=#{isDelete},okTime=#{okTime} WHERE pId=#{pId}
+	</update>
+
+	<select id="getReceive_jobByPid" resultType="Receive_job">
+		SELECT *
+		FROM receive_job WHERE pId=#{pId} and isDelete=0
+	</select>
+
+	<select id="getReceive_jobByRaccount" resultType="Receive_job">
+		SELECT *
+		FROM receive_job
+		WHERE rAccount=#{rAccount} and isDelete=0 order by rTime desc
+	</select>
+
+	<select id="getReceive_job" resultType="Receive_job">
+		SELECT *
+		FROM receive_job
+	</select>
+
+	
+
+	<select id="getReceive_jobByName" parameterType="map" resultType="Receive_job">
+		SELECT *
+		FROM receive_job WHERE (pId like #{name} OR rAccount like #{name} or rTime like #{name} or okTime like #{name}) limit #{offSet},#{pageSize} 
+	</select>
+	<select id="getCount" parameterType="map" resultType="int">
+		SELECT count(*)
+		FROM receive_job  WHERE (pId like #{name} OR rAccount like #{name} or rTime like #{name} or okTime like #{name})
+	</select>
+
+	<delete id="deleteReceive_job" parameterType="string">
+		delete from receive_job where
+		pId=#{pId}
+	</delete>
+
+</mapper>

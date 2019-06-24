@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间特殊作用： 如果使用mapper动态代理方法，这里就需要配置mapper接口地址 -->
+
+<mapper namespace="com.sise.ycj.model.Publish_job">
+
+	<insert id="addPublish_job" parameterType="Publish_job">
+		insert into publish_job(pId,
+		pAccount,pTitle,pContent,timeLimit,jobLevel,price,pTime,isComplish,isDelete) values(#{pId},
+		#{pAccount},#{pTitle},#{pContent},#{timeLimit},#{jobLevel},#{price},#{pTime},#{isComplish},#{isDelete})
+	</insert>
+
+	<update id="updatePublish_jobByPaccount" parameterType="Publish_job">
+		UPDATE publish_job SET
+		pAccount=#{pAccount},
+		pTitle=#{pTitle},
+		pContent=#{pContent},
+		timeLimit=#{timeLimit},
+		jobLevel=#{jobLevel},
+		price=#{price},
+		pTime=#{pTime},
+		isComplish=#{isComplish},
+		isDelete=#{isDelete} where pId=#{pId}
+	</update>
+
+	<select id="getPublish_jobByPaccount" resultType="Publish_job">
+		SELECT *
+		FROM publish_job WHERE pAccount=#{pAccount} and isDelete=0 order by pTime desc
+	</select>
+
+	<select id="getPublish_jobByPid" resultType="Publish_job">
+		SELECT *
+		FROM publish_job
+		WHERE pId=#{pId}
+	</select>
+	
+	<select id="getPublish_jobByPidAnd" resultType="Publish_job">
+		SELECT *
+		FROM publish_job
+		WHERE pId=#{pId}
+	</select>
+
+	<select id="getPublish_jobByLevel" resultType="Publish_job">
+		SELECT *
+		FROM publish_job
+		WHERE pAccount=#{pAccount} and isComplish=0
+	</select>
+	
+	<select id="getPublish_jobByPandT" resultMap="publishJobMap">
+		SELECT *
+		FROM publish_job t1 left join student_status t2 on(t1.pAccount=t2.u_account)
+		WHERE t1.pTitle like #{text} and isDelete=0 and isComplish=0
+	</select>
+	
+	<select id="getPublish_job" resultMap="publishJobMap">
+	
+		SELECT *
+		FROM publish_job t1 left join student_status t2 on(t1.pAccount=t2.u_account) where t1.isComplish=0 and t1.isDelete=0 order by t1.jobLevel desc limit 8
+	</select>
+	
+	<select id="getPublish_jobByName" parameterType="map" resultType="Publish_job">
+		SELECT *
+		FROM publish_job WHERE (pTitle like #{name} OR pContent like #{name} or pAccount like #{name} or pId like #{name})and isDelete=0 and isComplish=520 limit #{offSet},#{pageSize} 
+	</select>
+	<select id="getCount" parameterType="map" resultType="int">
+		SELECT count(*)
+		FROM publish_job  WHERE (pTitle like #{name} OR pContent like #{name} or pAccount like #{name} or pId like #{name})and isDelete=0 and isComplish=520
+	</select>
+	
+	<select id="getPublish_jobByNameTwo" parameterType="map" resultType="Publish_job">
+		SELECT *
+		FROM publish_job WHERE (pTitle like #{name} OR pContent like #{name} or pAccount like #{name} or pId like #{name})and isComplish !=520 order by pTime desc limit #{offSet},#{pageSize} 
+	</select>
+	<select id="getCountTwo" parameterType="map" resultType="int">
+		SELECT count(*)
+		FROM publish_job  WHERE (pTitle like #{name} OR pContent like #{name} or pAccount like #{name} or pId like #{name})and isComplish !=520
+	</select>
+	
+	<resultMap type="com.sise.ycj.model.Publish_job" id="publishJobMap" autoMapping="true">
+		<id column="pId" property="pId"/>
+		<result column="pAccount" property="pAccount"/>
+		<association property="student_status" column="pAccount" javaType="com.sise.ycj.model.Student_status">
+			<id column="s_id" property="sid"/>
+			<result column="u_account" property="uaccount"/>
+			<result column="school_name" property="schoolName"/>
+			<result column="yuan_xi" property="yuanXi"/>
+			<result column="zhuan_ye" property="zhuanYe"/>
+			<result column="xue_li" property="xueLi"/>
+			<result column="ruxue_year" property="ruxueYear"/>
+		</association>
+	</resultMap>
+	
+	<select id="getPublish_jobIndex" parameterType="String" resultMap="publishJobMap">
+		SELECT *
+		FROM publish_job t1 left join student_status t2 on(t1.pAccount=t2.u_account) where t1.isComplish=0 and t1.isDelete=0 order by pTime desc
+	</select>
+	
+	<delete id="deletePublish_job" parameterType="String">
+		delete from publish_job where
+		pId=#{pId}
+	</delete>
+
+</mapper>

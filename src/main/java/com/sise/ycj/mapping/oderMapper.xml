@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间特殊作用： 如果使用mapper动态代理方法，这里就需要配置mapper接口地址 -->
+
+<mapper namespace="com.sise.ycj.model.Oder">
+
+	<insert id="addOder" parameterType="Oder">
+		insert into oder(oderid,
+		pid,isDelete) values(#{oderid},
+		#{pid},#{isDelete})
+	</insert>
+
+	<update id="updateOderByOderid" parameterType="Oder">
+		UPDATE oder SET
+		oderid=#{oderid},
+		pid=#{pid},isDelete=#{isDelete} WHERE oderid=#{oderid}
+	</update>
+
+	<resultMap type="com.sise.ycj.model.Oder" id="oderMap" autoMapping="true">
+		<id column="oderid" property="oderid"/>
+		<result column="pid" property="pid"/>
+		<association property="publish_job" column="pid" javaType="com.sise.ycj.model.Publish_job">
+			<id column="pId" property="pId"/>
+			<result column="pAccount" property="pAccount"/>
+			<result column="pTitle" property="pTitle"/>
+			<result column="pContent" property="pContent"/>
+			<result column="timeLimit" property="timeLimit"/>
+			<result column="jobLevel" property="jobLevel"/>
+			<result column="price" property="price"/>
+			<result column="pTime" property="pTime"/>
+			<result column="isComplish" property="isComplish"/>
+			<result column="isDelete" property="isDelete"/>
+		</association>
+	</resultMap>
+	
+	<select id="getOderByOderid" resultMap="oderMap">
+		SELECT *
+		FROM oder t1  left join publish_job t2 on(t1.pid=t2.pId) WHERE t1.oderid=#{oderid} and t1.isDelete=0
+	</select>
+
+	<select id="getOder" resultMap="oderMap">
+		SELECT *
+		FROM oder t1  left join publish_job t2 on(t1.pid=t2.pId) where t1.isDelete=0
+	</select>
+	
+	<select id="getOderByAccount" resultMap="oderMap">
+		SELECT *
+		FROM oder t1  left join publish_job t2 on(t1.pid=t2.pId) where t2.pAccount=#{account} and t1.isDelete=0
+	</select>
+	
+	<select id="getOderByPid" resultMap="oderMap">
+		SELECT *
+		FROM oder t1  left join publish_job t2 on(t1.pid=t2.pId) where t2.pId=#{pId} and t1.isDelete=0
+	</select>
+	
+	<select id="getOderByName" parameterType="map" resultMap="oderMap">
+		SELECT *
+		FROM oder t1  left join publish_job t2 on(t1.pid=t2.pId) WHERE (t1.oderid like #{name}) limit #{offSet},#{pageSize} 
+	</select>
+	<select id="getCount" parameterType="map" resultType="int">
+		SELECT count(*)
+		FROM oder WHERE (oderid like #{name})
+	</select>
+	
+	<delete id="deleteOder" parameterType="string">
+		delete from oder where
+		oderid=#{oderid}
+	</delete>
+
+</mapper>

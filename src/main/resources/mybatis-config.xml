@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE configuration  
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">  
+<configuration>  
+    <!-- 配置打印 SQL 到控制台 以及懒加载 -->  
+    <settings>  
+    <!--mybatis sql打印  -->
+        <setting name="logImpl" value="STDOUT_LOGGING" />  
+        <!-- 打开延迟加载的全局开关 -->  
+        <setting name="lazyLoadingEnabled" value="true" />  
+        <setting name="aggressiveLazyLoading" value="false" />  
+        <setting name="mapUnderscoreToCamelCase" value="true" />  
+    </settings>  
+    <!-- 为org.bb.ssm.mode.UserInfo 设置一个别名 UserInfo -->  
+    <!-- <typeAliases>  
+        <typeAlias type="com.sise.model" />  
+    </typeAliases>  
+    <mappers>  
+       <package name="com.sise.mapper"/>
+    </mappers>   -->
+    
+    <!--分页插件  -->
+    <plugins>
+    <!-- com.github.pagehelper为PageHelper类所在包名 -->
+    <plugin interceptor="com.github.pagehelper.PageInterceptor">
+        <!-- 使用下面的方式配置参数，后面会有所有的参数介绍 -->
+        <property name="reasonable" value="true"/>
+	</plugin>
+</plugins>
+</configuration>
